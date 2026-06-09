@@ -4,6 +4,8 @@ const roleSelect = document.getElementById("role");
 const questionBox = document.getElementById("questionBox");
 const answerInput = document.getElementById("answerInput");
 const resultBox = document.getElementById("resultBox");
+const clearHistoryBtn = document.getElementById("clearHistoryBtn");
+const historyBox = document.getElementById("historyBox");
 
 generateBtn.addEventListener("click", async () => {
     const role = roleSelect.value;
@@ -35,11 +37,17 @@ generateBtn.addEventListener("click", async () => {
 });
 
 evaluateBtn.addEventListener("click", async () => {
+    const role = roleSelect.value;
     const question = questionBox.innerText;
     const answer = answerInput.value;
 
-    if (!question || question === "Question will appear here..." || question === "Generating question...") {
-        resultBox.innerText = "Please generate a question first.";
+    if (
+        !question ||
+        question === "Question will appear here..." ||
+        question === "Generating question..." ||
+        question.includes("Gemini quota exceeded")
+    ) {
+        resultBox.innerText = "Please generate a valid question first.";
         return;
     }
 
@@ -82,8 +90,54 @@ evaluateBtn.addEventListener("click", async () => {
             <p><strong>Sample Answer:</strong></p>
             <p>${data.sampleAnswer}</p>
         `;
+
+        saveHistory(role, question, answer, data.score);
     } catch (error) {
         resultBox.innerText = "Error evaluating answer";
         console.error(error);
     }
 });
+
+function saveHistory(role, question, answer, score) {
+    const history = JSON.parse(localStorage.getItem("interviewHistory")) || [];
+
+    const item = {
+        role,
+        question,
+        answer,
+        score,
+        date: new Date().toLocaleString()
+    };
+
+    history.unshift(item);
+
+    localStorage.setItem("interviewHistory", JSON.stringify(history));
+
+    displayHistory();
+}
+
+function displayHistory() {
+    const history = JSON.parse(localStorage.getItem("interviewHistory")) || [];
+
+    if (history.length === 0) {
+        historyBox.innerHTML = "No history yet.";
+        return;
+    }
+
+    historyBox.innerHTML = history.map(item => `
+        <div class="history-item">
+            <strong>Role:</strong> ${item.role}<br>
+            <strong>Score:</strong> ${item.score}/10<br>
+            <strong>Question:</strong> ${item.question}<br>
+            <strong>Your Answer:</strong> ${item.answer}<br>
+            <small>${item.date}</small>
+        </div>
+    `).join("");
+}
+
+clearHistoryBtn.addEventListener("click", () => {
+    localStorage.removeItem("interviewHistory");
+    displayHistory();
+});
+
+displayHistory();

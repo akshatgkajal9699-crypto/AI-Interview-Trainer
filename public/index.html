@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,32 +9,57 @@
 </head>
 <body>
 
-    <div class="container">
-        <h1>AI Interview Trainer</h1>
+```
+<div class="container">
 
-        <select id="role">
-            <option value="Frontend Developer">Frontend Developer</option>
-            <option value="Backend Developer">Backend Developer</option>
-            <option value="Java Developer">Java Developer</option>
-            <option value="Python Developer">Python Developer</option>
-            <option value="HR Interview">HR Interview</option>
-        </select>
+    <h1>AI Interview Trainer</h1>
 
-        <button id="generateBtn">Generate Question</button>
+    <select id="role">
+        <option value="Frontend Developer">Frontend Developer</option>
+        <option value="Backend Developer">Backend Developer</option>
+        <option value="Java Developer">Java Developer</option>
+        <option value="Python Developer">Python Developer</option>
+        <option value="HR Interview">HR Interview</option>
+    </select>
 
-        <div id="questionBox">
-            Question will appear here...
-        </div>
+    <button id="generateBtn">
+        Generate Question
+    </button>
 
-        <textarea id="answerInput" placeholder="Type your answer here..."></textarea>
-
-        <button id="evaluateBtn">Evaluate Answer</button>
-
-        <div id="resultBox">
-            Evaluation will appear here...
-        </div>
+    <div id="questionBox">
+        Question will appear here...
     </div>
 
-    <script src="script.js"></script>
+    <textarea
+        id="answerInput"
+        placeholder="Type your answer here..."
+        rows="8">
+    </textarea>
+
+    <button id="evaluateBtn">
+        Evaluate Answer
+    </button>
+
+    <div id="resultBox">
+        Evaluation will appear here...
+    </div>
+
+    <hr>
+
+    <h2>Interview History</h2>
+
+    <button id="clearHistoryBtn">
+        Clear History
+    </button>
+
+    <div id="historyBox">
+        No history yet.
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+```
+
 </body>
 </html>
