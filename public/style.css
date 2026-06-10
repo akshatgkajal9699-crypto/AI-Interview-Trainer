@@ -47,3 +47,22 @@ button:hover {
     min-height: 80px;
     background-color: #fafafa;
 }
+.dark-mode {
+    background-color: #121212;
+    color: white;
+}
+
+.dark-mode .container {
+    background-color: #1e1e1e;
+    color: white;
+}
+
+.dark-mode #questionBox,
+.dark-mode #resultBox,
+.dark-mode textarea,
+.dark-mode #statsBox,
+.dark-mode .history-item {
+    background-color: #2c2c2c;
+    color: white;
+    border: 1px solid #555;
+}

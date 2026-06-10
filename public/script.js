@@ -1,3 +1,4 @@
+const themeToggle = document.getElementById("themeToggle");
 const generateBtn = document.getElementById("generateBtn");
 const nextQuestionBtn = document.getElementById("nextQuestionBtn");
 const evaluateBtn = document.getElementById("evaluateBtn");
@@ -175,3 +176,19 @@ clearHistoryBtn.addEventListener("click", () => {
 
 displayHistory();
 updateStats();
+themeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark-mode");
+
+    if (document.body.classList.contains("dark-mode")) {
+        localStorage.setItem("theme", "dark");
+        themeToggle.innerText = "☀️ Light Mode";
+    } else {
+        localStorage.setItem("theme", "light");
+        themeToggle.innerText = "🌙 Dark Mode";
+    }
+});
+
+if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark-mode");
+    themeToggle.innerText = "☀️ Light Mode";
+}
