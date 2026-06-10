@@ -1,3 +1,4 @@
+const downloadPdfBtn = document.getElementById("downloadPdfBtn");
 const themeToggle = document.getElementById("themeToggle");
 const generateBtn = document.getElementById("generateBtn");
 const nextQuestionBtn = document.getElementById("nextQuestionBtn");
@@ -192,3 +193,29 @@ if (localStorage.getItem("theme") === "dark") {
     document.body.classList.add("dark-mode");
     themeToggle.innerText = "☀️ Light Mode";
 }
+downloadPdfBtn.addEventListener("click", () => {
+
+    const { jsPDF } = window.jspdf;
+
+    const doc = new jsPDF();
+
+    doc.setFontSize(18);
+    doc.text("AI Interview Report", 20, 20);
+
+    doc.setFontSize(12);
+
+    doc.text(`Role: ${roleSelect.value}`, 20, 40);
+    doc.text(`Difficulty: ${difficultySelect.value}`, 20, 50);
+
+    doc.text("Question:", 20, 70);
+    doc.text(questionBox.innerText, 20, 80, {
+        maxWidth: 170
+    });
+
+    doc.text("Answer:", 20, 120);
+    doc.text(answerInput.value || "No Answer", 20, 130, {
+        maxWidth: 170
+    });
+
+    doc.save("Interview_Report.pdf");
+});
