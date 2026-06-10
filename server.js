@@ -103,3 +103,8 @@ Return ONLY valid JSON in this exact format:
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+app.get("/check-key", (req, res) => {
+  res.json({
+    hasKey: !!process.env.GEMINI_API_KEY
+  });
+});
