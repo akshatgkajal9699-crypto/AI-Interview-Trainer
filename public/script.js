@@ -1,6 +1,8 @@
 const generateBtn = document.getElementById("generateBtn");
+const nextQuestionBtn = document.getElementById("nextQuestionBtn");
 const evaluateBtn = document.getElementById("evaluateBtn");
 const roleSelect = document.getElementById("role");
+const difficultySelect = document.getElementById("difficulty");
 const questionBox = document.getElementById("questionBox");
 const answerInput = document.getElementById("answerInput");
 const resultBox = document.getElementById("resultBox");
@@ -10,8 +12,9 @@ const historyBox = document.getElementById("historyBox");
 const totalInterviews = document.getElementById("totalInterviews");
 const averageScore = document.getElementById("averageScore");
 
-generateBtn.addEventListener("click", async () => {
+async function generateQuestion() {
     const role = roleSelect.value;
+    const difficulty = difficultySelect.value;
 
     questionBox.innerText = "Generating question...";
     resultBox.innerText = "Evaluation will appear here...";
@@ -23,7 +26,7 @@ generateBtn.addEventListener("click", async () => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({ role }),
+            body: JSON.stringify({ role, difficulty }),
         });
 
         const data = await response.json();
@@ -37,10 +40,14 @@ generateBtn.addEventListener("click", async () => {
         questionBox.innerText = "Error generating question";
         console.error(error);
     }
-});
+}
+
+generateBtn.addEventListener("click", generateQuestion);
+nextQuestionBtn.addEventListener("click", generateQuestion);
 
 evaluateBtn.addEventListener("click", async () => {
     const role = roleSelect.value;
+    const difficulty = difficultySelect.value;
     const question = questionBox.innerText;
     const answer = answerInput.value;
 
@@ -94,22 +101,23 @@ evaluateBtn.addEventListener("click", async () => {
             <p>${data.sampleAnswer}</p>
         `;
 
-        saveHistory(role, question, answer, data.score);
+        saveHistory(role, difficulty, question, answer, data.score);
     } catch (error) {
         resultBox.innerText = "Error evaluating answer";
         console.error(error);
     }
 });
 
-function saveHistory(role, question, answer, score) {
+function saveHistory(role, difficulty, question, answer, score) {
     const history = JSON.parse(localStorage.getItem("interviewHistory")) || [];
 
     const item = {
         role,
+        difficulty,
         question,
         answer,
         score,
-        date: new Date().toLocaleString()
+        date: new Date().toLocaleString(),
     };
 
     history.unshift(item);
@@ -131,6 +139,7 @@ function displayHistory() {
     historyBox.innerHTML = history.map(item => `
         <div class="history-item">
             <strong>Role:</strong> ${item.role}<br>
+            <strong>Difficulty:</strong> ${item.difficulty || "Medium"}<br>
             <strong>Score:</strong> ${item.score}/10<br>
             <strong>Question:</strong> ${item.question}<br>
             <strong>Your Answer:</strong> ${item.answer}<br>
@@ -155,9 +164,7 @@ function updateStats() {
         return sum + Number(item.score);
     }, 0);
 
-    const avg = (totalScore / history.length).toFixed(1);
-
-    averageScore.innerText = avg;
+    averageScore.innerText = (totalScore / history.length).toFixed(1);
 }
 
 clearHistoryBtn.addEventListener("click", () => {

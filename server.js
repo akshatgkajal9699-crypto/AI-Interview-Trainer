@@ -27,16 +27,22 @@ app.get("/test", (req, res) => {
 
 app.post("/generate-question", async (req, res) => {
   try {
-    const { role } = req.body;
+    const { role, difficulty } = req.body;
 
     const response = await ai.models.generateContent({
       model: "gemini-2.0-flash",
-      contents: `Generate one professional interview question for a ${role} role. Return only the question.`,
+      contents: `
+Generate one ${difficulty} level professional interview question
+for a ${role} role.
+
+Return only the question.
+`,
     });
 
     res.json({
       success: true,
       selectedRole: role,
+      difficulty: difficulty,
       question: response.text,
     });
   } catch (error) {

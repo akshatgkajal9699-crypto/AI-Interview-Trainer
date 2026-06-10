@@ -13,6 +13,7 @@
         <h1>AI Interview Trainer</h1>
 
         <div class="input-row">
+
             <select id="role">
                 <option value="Frontend Developer">Frontend Developer</option>
                 <option value="Backend Developer">Backend Developer</option>
@@ -21,7 +22,16 @@
                 <option value="HR Interview">HR Interview</option>
             </select>
 
-            <button id="generateBtn">Generate Question</button>
+            <select id="difficulty">
+                <option value="Easy">Easy</option>
+                <option value="Medium" selected>Medium</option>
+                <option value="Hard">Hard</option>
+            </select>
+
+            <button id="generateBtn">
+                Generate Question
+            </button>
+
         </div>
 
         <div id="questionBox">
@@ -34,7 +44,9 @@
             rows="8">
         </textarea>
 
-        <button id="evaluateBtn">Evaluate Answer</button>
+        <button id="evaluateBtn">
+            Evaluate Answer
+        </button>
 
         <div id="resultBox">
             Evaluation will appear here...
@@ -43,25 +55,31 @@
         <hr>
 
         <section class="dashboard-section">
+
             <h2>Statistics</h2>
 
             <div id="statsBox">
                 <p>Total Interviews: <span id="totalInterviews">0</span></p>
                 <p>Average Score: <span id="averageScore">0</span>/10</p>
             </div>
+
         </section>
 
         <hr>
 
         <section class="history-section">
+
             <div class="history-header">
                 <h2>Interview History</h2>
-                <button id="clearHistoryBtn">Clear History</button>
+                <button id="clearHistoryBtn">
+                    Clear History
+                </button>
             </div>
 
             <div id="historyBox">
                 No history yet.
             </div>
+
         </section>
 
     </div>
