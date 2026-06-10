@@ -7,6 +7,9 @@ const resultBox = document.getElementById("resultBox");
 const clearHistoryBtn = document.getElementById("clearHistoryBtn");
 const historyBox = document.getElementById("historyBox");
 
+const totalInterviews = document.getElementById("totalInterviews");
+const averageScore = document.getElementById("averageScore");
+
 generateBtn.addEventListener("click", async () => {
     const role = roleSelect.value;
 
@@ -110,10 +113,10 @@ function saveHistory(role, question, answer, score) {
     };
 
     history.unshift(item);
-
     localStorage.setItem("interviewHistory", JSON.stringify(history));
 
     displayHistory();
+    updateStats();
 }
 
 function displayHistory() {
@@ -121,6 +124,7 @@ function displayHistory() {
 
     if (history.length === 0) {
         historyBox.innerHTML = "No history yet.";
+        updateStats();
         return;
     }
 
@@ -133,11 +137,34 @@ function displayHistory() {
             <small>${item.date}</small>
         </div>
     `).join("");
+
+    updateStats();
+}
+
+function updateStats() {
+    const history = JSON.parse(localStorage.getItem("interviewHistory")) || [];
+
+    totalInterviews.innerText = history.length;
+
+    if (history.length === 0) {
+        averageScore.innerText = "0";
+        return;
+    }
+
+    const totalScore = history.reduce((sum, item) => {
+        return sum + Number(item.score);
+    }, 0);
+
+    const avg = (totalScore / history.length).toFixed(1);
+
+    averageScore.innerText = avg;
 }
 
 clearHistoryBtn.addEventListener("click", () => {
     localStorage.removeItem("interviewHistory");
     displayHistory();
+    updateStats();
 });
 
 displayHistory();
+updateStats();

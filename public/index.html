@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,57 +8,65 @@
 </head>
 <body>
 
-```
-<div class="container">
+    <div class="container">
 
-    <h1>AI Interview Trainer</h1>
+        <h1>AI Interview Trainer</h1>
 
-    <select id="role">
-        <option value="Frontend Developer">Frontend Developer</option>
-        <option value="Backend Developer">Backend Developer</option>
-        <option value="Java Developer">Java Developer</option>
-        <option value="Python Developer">Python Developer</option>
-        <option value="HR Interview">HR Interview</option>
-    </select>
+        <div class="input-row">
+            <select id="role">
+                <option value="Frontend Developer">Frontend Developer</option>
+                <option value="Backend Developer">Backend Developer</option>
+                <option value="Java Developer">Java Developer</option>
+                <option value="Python Developer">Python Developer</option>
+                <option value="HR Interview">HR Interview</option>
+            </select>
 
-    <button id="generateBtn">
-        Generate Question
-    </button>
+            <button id="generateBtn">Generate Question</button>
+        </div>
 
-    <div id="questionBox">
-        Question will appear here...
+        <div id="questionBox">
+            Question will appear here...
+        </div>
+
+        <textarea
+            id="answerInput"
+            placeholder="Type your answer here..."
+            rows="8">
+        </textarea>
+
+        <button id="evaluateBtn">Evaluate Answer</button>
+
+        <div id="resultBox">
+            Evaluation will appear here...
+        </div>
+
+        <hr>
+
+        <section class="dashboard-section">
+            <h2>Statistics</h2>
+
+            <div id="statsBox">
+                <p>Total Interviews: <span id="totalInterviews">0</span></p>
+                <p>Average Score: <span id="averageScore">0</span>/10</p>
+            </div>
+        </section>
+
+        <hr>
+
+        <section class="history-section">
+            <div class="history-header">
+                <h2>Interview History</h2>
+                <button id="clearHistoryBtn">Clear History</button>
+            </div>
+
+            <div id="historyBox">
+                No history yet.
+            </div>
+        </section>
+
     </div>
 
-    <textarea
-        id="answerInput"
-        placeholder="Type your answer here..."
-        rows="8">
-    </textarea>
-
-    <button id="evaluateBtn">
-        Evaluate Answer
-    </button>
-
-    <div id="resultBox">
-        Evaluation will appear here...
-    </div>
-
-    <hr>
-
-    <h2>Interview History</h2>
-
-    <button id="clearHistoryBtn">
-        Clear History
-    </button>
-
-    <div id="historyBox">
-        No history yet.
-    </div>
-
-</div>
-
-<script src="script.js"></script>
-```
+    <script src="script.js"></script>
 
 </body>
 </html>
